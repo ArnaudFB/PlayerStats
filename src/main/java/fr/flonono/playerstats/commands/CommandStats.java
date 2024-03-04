@@ -5,6 +5,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import fr.flonono.playerstats.database.DatabaseManagement;
+import fr.flonono.playerstats.utils.ResultT;
+
 public class CommandStats implements CommandExecutor{
     
     @Override
@@ -22,7 +25,11 @@ public class CommandStats implements CommandExecutor{
             }
 
             try {
-                targetedPlayer.
+                ResultT<Integer> kills = DatabaseManagement.getKillsByUUID(targetedPlayer.getUniqueId());
+
+            }
+            catch{
+
             }
         }
     }
