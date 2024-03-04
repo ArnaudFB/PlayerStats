@@ -45,6 +45,17 @@ public class Database {
         this.connection.close();
     }
 
+    public void addPlayerToDatabase(UUID playerUuid) throws SQLException {
+        PreparedStatement preparedStatement = getConnection().prepareStatement("INSERT INTO playerstatistics (playeruuid, kills, deaths) " +
+                "VALUES (?, ?, ?)");
+
+        preparedStatement.setString(1, playerUuid.toString());
+        preparedStatement.setInt(2, 0);
+        preparedStatement.setInt(3, 0);
+
+        preparedStatement.executeUpdate();
+    }
+
     public int getKillsByUUID(UUID playerUuid) throws SQLException {
         PreparedStatement ps = getConnection().prepareStatement("SELECT kills FROM playerstatistics " +
                 "WHERE playeruuid = ?");
@@ -120,11 +131,5 @@ public class Database {
         preparedStatement.executeUpdate();
 
     }
-
-
-
-
-
-
 
 }

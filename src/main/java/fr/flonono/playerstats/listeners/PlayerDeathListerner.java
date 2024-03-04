@@ -1,3 +1,5 @@
+package fr.flonono.playerstats.listeners;
+
 import java.util.UUID;
 
 import org.bukkit.entity.Player;
