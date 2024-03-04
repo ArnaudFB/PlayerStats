@@ -80,6 +80,73 @@ public class DatabaseManagement {
 
     }
 
+    public static ResultT<Integer> getDeathsByUUID(UUID playerUuid) {
+        if (isError) {
+            return ResultT.error("§cInteractions with storage disable to prevent issue, an error occurred before this, please go up in the logs.");
+        }
+
+        try {
+            int deaths = database.getDeathsByUUID(playerUuid);
+            if (deaths == -1) {
+                return ResultT.error("No player match found with uuid = " + playerUuid);
+            }
+            return ResultT.success(deaths);
+        } catch (SQLException ex) {
+            PlayerStats.log.sendMessage("§cSomething went wrong when trying to access stats on player " + playerUuid + ex.getMessage());
+            return ResultT.error("Something went wrong when trying to access stats on player " + playerUuid);
+        }
+
+    }
+
+    public static void incrementKillByUUID(UUID playerUuid) {
+        if (isError) {
+            PlayerStats.log.sendMessage("§cInteractions with storage disable to prevent issue, an error occurred before this, please go up in the logs.");
+            return;
+        }
+
+        try {
+            int kills = database.getKillsByUUID(playerUuid);
+            if (kills == -1) {
+                PlayerStats.log.sendMessage("§cSomething went wrong when trying to access stats on player " + playerUuid);
+            }
+            int newKillAmount = kills + 1;
+            database.setKillsByUUID(playerUuid, newKillAmount);
+        } catch (SQLException ex) {
+            PlayerStats.log.sendMessage("§Something went wrong when trying to increment kills on player " + playerUuid);
+        }
+    }
+
+    public static void incrementDeathByUUID(UUID playerUuid) {
+        if (isError) {
+            PlayerStats.log.sendMessage("§cInteractions with storage disable to prevent issue, an error occurred before this, please go up in the logs.");
+            return;
+        }
+
+        try {
+            int deaths = database.getDeathsByUUID(playerUuid);
+            if (deaths == -1) {
+                PlayerStats.log.sendMessage("§cSomething went wrong when trying to access stats on player " + playerUuid);
+            }
+            int newDeathAmount = deaths + 1;
+            database.setDeathsByUUID(playerUuid, newDeathAmount);
+        } catch (SQLException ex) {
+            PlayerStats.log.sendMessage("§Something went wrong when trying to increment deaths on player " + playerUuid);
+        }
+    }
+
+    public static void resetStatisticsByUUID(UUID playerUuid) {
+        if (isError) {
+            PlayerStats.log.sendMessage("§cInteractions with storage disable to prevent issue, an error occurred before this, please go up in the logs.");
+            return;
+        }
+
+        try {
+            database.setKillsByUUID(playerUuid, 0);
+            database.setDeathsByUUID(playerUuid, 0);
+        } catch (SQLException ex) {
+            PlayerStats.log.sendMessage("§cSomething went wrong when trying to reset statistics on player " + playerUuid + ex.getMessage());
+        }
+    }
 
 
 }
