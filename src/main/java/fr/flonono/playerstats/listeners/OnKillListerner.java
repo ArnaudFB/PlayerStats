@@ -8,6 +8,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 import fr.flonono.playerstats.PlayerStats;
+import fr.flonono.playerstats.database.DatabaseManagement;
+import fr.flonono.playerstats.utils.ResultT;
 
 public class OnKillListerner implements Listener {
     
@@ -19,8 +21,8 @@ public class OnKillListerner implements Listener {
         UUID killerUuid = killer.getUniqueId();
 
         
-        ResultT<Integer> resKilled = DatabaseManager.incrementDeathByUuid(killedUuid);
-        ResultT<Integer> resKiller = DatabaseManager.incrementDeathByUuid(killerUuid);
+        ResultT<Integer> resKilled = DatabaseManagement.incrementDeathByUUID(killedUuid);
+        ResultT<Integer> resKiller = DatabaseManagement.incrementKillByUUID(killerUuid);
 
         if (resKilled.inError()) {
             PlayerStats.log.sendMessage(resKilled.getErrorMessage());
