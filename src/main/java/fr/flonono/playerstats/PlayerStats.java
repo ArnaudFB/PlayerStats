@@ -4,6 +4,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class PlayerStats extends JavaPlugin {
 
+    private static PlayerStats instance;
+
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -14,4 +16,6 @@ public final class PlayerStats extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
     }
+
+    public static PlayerStats getInstance() { return instance; }
 }
