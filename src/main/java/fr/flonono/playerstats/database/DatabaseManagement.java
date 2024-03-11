@@ -98,9 +98,12 @@ public class DatabaseManagement {
 
     }
 
-    public static void incrementKillByUUID(UUID playerUuid) {
+    public static void incrementKillByUUID(UUID playerUuid, int amount) {
         if (isError) {
             PlayerStats.log.sendMessage("§cInteractions with storage disable to prevent issue, an error occurred before this, please go up in the logs.");
+            return;
+        }
+        if (amount < 0) {
             return;
         }
 
@@ -109,16 +112,19 @@ public class DatabaseManagement {
             if (kills == -1) {
                 PlayerStats.log.sendMessage("§cSomething went wrong when trying to access stats on player " + playerUuid);
             }
-            int newKillAmount = kills + 1;
+            int newKillAmount = kills + amount;
             database.setKillsByUUID(playerUuid, newKillAmount);
         } catch (SQLException ex) {
             PlayerStats.log.sendMessage("§Something went wrong when trying to increment kills on player " + playerUuid);
         }
     }
 
-    public static void incrementDeathByUUID(UUID playerUuid) {
+    public static void incrementDeathByUUID(UUID playerUuid, int amount) {
         if (isError) {
             PlayerStats.log.sendMessage("§cInteractions with storage disable to prevent issue, an error occurred before this, please go up in the logs.");
+            return;
+        }
+        if (amount < 0) {
             return;
         }
 
@@ -127,7 +133,7 @@ public class DatabaseManagement {
             if (deaths == -1) {
                 PlayerStats.log.sendMessage("§cSomething went wrong when trying to access stats on player " + playerUuid);
             }
-            int newDeathAmount = deaths + 1;
+            int newDeathAmount = deaths + amount;
             database.setDeathsByUUID(playerUuid, newDeathAmount);
         } catch (SQLException ex) {
             PlayerStats.log.sendMessage("§Something went wrong when trying to increment deaths on player " + playerUuid);
@@ -150,6 +156,17 @@ public class DatabaseManagement {
 
     public static boolean isDatabaseInError() {
         return isError;
+    }
+
+    public static void close() {
+        if (isError) {
+            return;
+        }
+        try {
+            database.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

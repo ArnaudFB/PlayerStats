@@ -11,11 +11,7 @@ import fr.flonono.playerstats.PlayerStats;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
-import java.util.UUID;
-
 public class PlaceholderHook extends PlaceholderExpansion {
-
-    private final PlayerStats plugin;
 
     public PlaceholderHook(PlayerStats plugin) {
         this.plugin = plugin;
