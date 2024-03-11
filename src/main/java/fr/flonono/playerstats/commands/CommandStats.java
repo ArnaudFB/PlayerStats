@@ -31,11 +31,21 @@ public class CommandStats implements CommandExecutor{
             return false;
         }
 
+        if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
+            if (!commandSender.hasPermission("playerstats.reload")) {
+                commandSender.sendMessage(lang.getString("ErrorMessages.NoPermission"));
+                return false;
+            }
+            plugin.reloadConfig();
+            commandSender.sendMessage(lang.getString("MiscMessages.ReloadComplete"));
+            return true;
+        }
+
         // /stats
         if (args.length == 0) {
             if (commandSender instanceof Player) {
                 Player player = (((Player) commandSender).getPlayer());
-                String message = lang.getString(""); //TODO display own stats message
+                String message = lang.getString("MiscMessages.DisplayPlayerStats");
                 String parsedMessage = PlaceholderAPI.setPlaceholders(player, message);
                 player.sendMessage(parsedMessage);
                 return true;
@@ -45,11 +55,11 @@ public class CommandStats implements CommandExecutor{
         // /stats reset <player>
         if (args[0].equalsIgnoreCase("reset")) {
             if (!commandSender.hasPermission("playerstats.reset")) {
-                commandSender.sendMessage(lang.getString("")); //TODO no permission message
+                commandSender.sendMessage(lang.getString("ErrorMessages.NoPermission"));
                 return false;
             }
             if (args.length > 2) {
-                commandSender.sendMessage(lang.getString("")); //TODO too many args
+                commandSender.sendMessage(lang.getString("ErrorMessages.TooManyArgsError"));
                 return false;
             }
             Player targetedPlayer = Bukkit.getPlayerExact(args[1]);
@@ -58,41 +68,53 @@ public class CommandStats implements CommandExecutor{
             }
             UUID targetedPlayerUUID = targetedPlayer.getUniqueId();
             DatabaseManagement.resetStatisticsByUUID(targetedPlayerUUID);
-            String message = lang.getString(""); //TODO message confirmation reset
+            String message = lang.getString("MiscMessages.ResetedPlayerStats");
             commandSender.sendMessage(message);
             return true;
         }
 
-        // /stats give <kill/death> <amount>
+        // /stats give <player> <kill/death> <amount>
         if (args[0].equalsIgnoreCase("give")) {
             if (!commandSender.hasPermission("playerstats.give")) {
-                commandSender.sendMessage(lang.getString("")); //TODO no permission message
+                commandSender.sendMessage(lang.getString("ErrorMessages.NoPermission"));
                 return false;
             }
-            if (args.length > 3) {
-                commandSender.sendMessage(lang.getString("")); //TODO too many args
+            if (args.length > 4) {
+                commandSender.sendMessage(lang.getString("ErrorMessages.TooManyArgsError"));
                 return false;
             }
             if (args[1].equalsIgnoreCase("death") || args[1].equalsIgnoreCase("kill")) {
                 try {
-                    Integer.parseInt(args[2]);
-
+                    Integer amount = Integer.parseInt(args[3]);
+                    Player targetedPlayer = Bukkit.getPlayerExact(args[2]);
+                    if (targetedPlayer == null) {
+                        return false;
+                    }
+                    if (args[1].equalsIgnoreCase("kill")) {
+                        DatabaseManagement.incrementKillByUUID(targetedPlayer.getUniqueId(), amount);
+                    }
+                    if (args[1].equalsIgnoreCase("death")) {
+                        DatabaseManagement.incrementDeathByUUID(targetedPlayer.getUniqueId(), amount);
+                    }
+                } catch (NumberFormatException ex) {
+                    commandSender.sendMessage(lang.getString("ErrorMessages.NotAnIntError"));
                 }
             }
-            commandSender.sendMessage(lang.getString("")); //TODO wrong command message
+            commandSender.sendMessage(lang.getString("ErrorMessages.WrongCommandError"));
         }
 
         // /stats <player>
         if (args.length == 1){
             Player targetedPlayer = Bukkit.getPlayerExact(args[0]);
             if (targetedPlayer == null){
-                commandSender.sendMessage("Invalid target : player not found");
+                commandSender.sendMessage(lang.getString("ErrorMessages.PlayerNotFoundError"));
                 return false;
             }
-            String message = lang.getString("");
+            String message = lang.getString("MiscMessages.DisplayOtherPlayerStats");
             String parsedMessage = PlaceholderAPI.setPlaceholders(targetedPlayer, message);
             commandSender.sendMessage(parsedMessage);
 
         }
+        return false;
     }
 }

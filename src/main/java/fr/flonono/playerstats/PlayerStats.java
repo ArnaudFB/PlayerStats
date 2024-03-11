@@ -3,7 +3,9 @@ package fr.flonono.playerstats;
 import fr.flonono.playerstats.commands.CommandStats;
 import fr.flonono.playerstats.database.DatabaseManagement;
 import fr.flonono.playerstats.hooks.PlaceholderHook;
+import fr.flonono.playerstats.listeners.OnJoinListener;
 import fr.flonono.playerstats.listeners.OnKillListener;
+import fr.flonono.playerstats.utils.language.Lang;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -34,6 +36,7 @@ public final class PlayerStats extends JavaPlugin {
         DatabaseManagement.load();
 
         getServer().getPluginManager().registerEvents(new OnKillListener(), this);
+        getServer().getPluginManager().registerEvents(new OnJoinListener(), this);
 
         this.getCommand("stats").setExecutor(new CommandStats());
 

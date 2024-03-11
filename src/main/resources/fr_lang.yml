@@ -1,6 +1,10 @@
 MiscMessages:
-  DisplayPlayerStats: '&9&l[&3&lPlayer&b&lStats&9&l] &7→ Vous avez tuer %playerStats_kills%
-    joueurs et vous êtes morts %playerStats_death" fois.'
+  DisplayPlayerStats: '&9&l[&3&lPlayer&b&lStats&9&l] &7→ Vous avez tuer %playerstats_kills%
+    joueurs et vous êtes morts %playerstats_death" fois.'
+  DisplayOtherPlayerStats: '&9&l[&3&lPlayer&b&lStats&9&l] &7→ Ce joueur a tué %playerstats_kills%
+    joueurs et est mort %playerstats_death" fois.'
+  ResetedPlayerStats: '&9&l[&3&lPlayer&b&lStats&9&l] &7→ Vous venez de réinitialiser les statistiques du joueur'
+
 
 ErrorMessages:
   NoPermission: '&9&l[&3&lPlayer&b&lStats&9&l] &7→ &cVous n''avez pas la permission
@@ -12,3 +16,4 @@ ErrorMessages:
   PlayerNotFoundError: '&9&l[&3&lPlayer&b&lStats&9&l] &7→ &cLe joueur spécifié n''a
     pas été trouvé'
   NotAnIntError: '&9&l[&3&lPlayer&b&lStats&9&l] &7→ &cVeuillez entrer un entier'
+  WrongCommandError: '&9&l[&3&lPlayer&b&lStats&9&l] &7→ &cCommande non reconnue'

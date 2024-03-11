@@ -13,6 +13,8 @@ import org.bukkit.OfflinePlayer;
 
 public class PlaceholderHook extends PlaceholderExpansion {
 
+    private final PlayerStats plugin;
+
     public PlaceholderHook(PlayerStats plugin) {
         this.plugin = plugin;
     }
