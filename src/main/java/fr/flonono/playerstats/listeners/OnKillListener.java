@@ -11,7 +11,7 @@ import fr.flonono.playerstats.PlayerStats;
 import fr.flonono.playerstats.database.DatabaseManagement;
 import fr.flonono.playerstats.utils.ResultT;
 
-public class OnKillListerner implements Listener {
+public class OnKillListener implements Listener {
     
     @EventHandler
     public void onKill(PlayerDeathEvent event){

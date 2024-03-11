@@ -148,5 +148,9 @@ public class DatabaseManagement {
         }
     }
 
+    public static boolean isDatabaseInError() {
+        return isError;
+    }
+
 
 }
