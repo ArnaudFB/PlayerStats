@@ -15,14 +15,20 @@ public class OnKillListener implements Listener {
     
     @EventHandler
     public void onKill(PlayerDeathEvent event){
+
         Player killed = event.getEntity();
         Player killer = event.getEntity().getKiller();
-        UUID killedUuid = killed.getUniqueId();
-        UUID killerUuid = killer.getUniqueId();
 
+        if (killer == null){
+            return;
+        }
         
-        ResultT<Integer> resKilled = DatabaseManagement.incrementDeathByUUID(killedUuid);
-        ResultT<Integer> resKiller = DatabaseManagement.incrementKillByUUID(killerUuid);
+        UUID killerUuid = killer.getUniqueId();
+        UUID killedUuid = killed.getUniqueId();        
+        DatabaseManagement.incrementDeathByUUID(killedUuid, 1);
+        ResultT<Integer> resKilled = DatabaseManagement.getDeathsByUUID(killedUuid);
+        DatabaseManagement.incrementKillByUUID(killerUuid, 1);
+        ResultT<Integer> resKiller = DatabaseManagement.getKillsByUUID(killerUuid);
 
         if (resKilled.inError()) {
             PlayerStats.log.sendMessage(resKilled.getErrorMessage());
@@ -32,6 +38,7 @@ public class OnKillListener implements Listener {
             PlayerStats.log.sendMessage(resKiller.getErrorMessage());
         }
 
+        
     }
     
 }

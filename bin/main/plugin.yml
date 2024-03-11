@@ -1,0 +1,4 @@
+name: PlayerStats
+version: '${version}'
+main: fr.flonono.playerstats.PlayerStats
+api-version: '1.20'
