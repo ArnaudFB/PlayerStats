@@ -25,9 +25,9 @@ public class OnKillListener implements Listener {
         
         UUID killerUuid = killer.getUniqueId();
         UUID killedUuid = killed.getUniqueId();        
-        DatabaseManagement.incrementDeathByUUID(killedUuid);
+        DatabaseManagement.incrementDeathByUUID(killedUuid, 1);
         ResultT<Integer> resKilled = DatabaseManagement.getDeathsByUUID(killedUuid);
-        DatabaseManagement.incrementKillByUUID(killerUuid);
+        DatabaseManagement.incrementKillByUUID(killerUuid, 1);
         ResultT<Integer> resKiller = DatabaseManagement.getKillsByUUID(killerUuid);
 
         if (resKilled.inError()) {
