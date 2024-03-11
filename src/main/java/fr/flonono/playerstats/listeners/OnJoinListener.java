@@ -37,7 +37,7 @@ public class OnJoinListener extends JavaPlugin implements Listener {
 
 
     FileConfiguration languageConfig = PlayerStats.getInstance().getLang();
-    String message = languageConfig.getString("MiscMessages.DisplayPlayerStats", "§aYou have  %Player_Kills% kills and %Player_Death% deaths.");
+    String message = languageConfig.getString("MiscMessages.DisplayPlayerStats", "§aYou have  %playerstats_Kills% kills and %playerstats_Death% deaths.");
     String parsedMessage = PlaceholderAPI.setPlaceholders(p, message);
     p.sendMessage(parsedMessage);    
     }
