@@ -54,13 +54,13 @@ public final class PlayerStats extends JavaPlugin {
     public static PlayerStats getInstance() { return instance; }
 
     public void loadLang() {
-        File lang = new File(getDataFolder(), "lang.yml");
+        File lang = new File(getDataFolder(), "fr_lang.yml");
         Reader defConfigStream;
         if (!lang.exists()) {
             try {
                 getDataFolder().mkdir();
                 lang.createNewFile();
-                defConfigStream = new InputStreamReader(getResource("lang.yml"), StandardCharsets.UTF_8);
+                defConfigStream = new InputStreamReader(getResource("fr_lang.yml"), StandardCharsets.UTF_8);
                 if (defConfigStream != null) {
                     YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
                     defConfig.save(lang);

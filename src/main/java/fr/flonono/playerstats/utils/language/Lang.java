@@ -6,7 +6,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 public enum Lang {
 
     PLUGIN_NAME("PluginName", "&9&l[&3&lPlayer&b&lStats&9&l] &7→"),
-    DISPLAY_LIVES_LEFT("MiscMessages.DisplayPlayerStats", "&9&l[&3&lPlayer&b&lStats&9&l] &7→ Vous avez tué %playerstats_kills% joueurs et vous êtes mort %playerstats_death% fois."),
+    DISPLAY_PLAYER_STATS("MiscMessages.DisplayPlayerStats", "&9&l[&3&lPlayer&b&lStats&9&l] &7→ Vous avez tué %playerstats_kills% joueurs et vous êtes mort %playerstats_death% fois."),
+    DISPLAY_OTHER_PLAYER_STATS("MiscMesssages.DisplayOtherPlayerStats", "&9&l[&3&lPlayer&b&lStats&9&l] &7→ Ce joueur a tué %playerstats_kills% joueurs et est mort %playerstats_deaths% fois."),
+    RESETED_PLAYER_STATS("MiscMesssages.ResetedPlayerStats", "&9&l[&3&lPlayer&b&lStats&9&l] &7→ Vous venez de réinitialiser les statistiques du joueur"),
     RELOAD_COMPLETE("MiscMessages.ReloadComplete", "&9&l[&3&lPlayer&b&lStats&9&l] &7→ Reload fini"),
     NO_PERMISSION("ErrorMessages.NoPermission", "&9&l[&3&lPlayer&b&lStats&9&l] &7→ &cVous n''avez pas la permission d'effectuer cette commande"),
     TOO_MANY_ARGS_ERROR("ErrorMessages.TooManyArgsError", "&9&l[&3&lPlayer&b&lStats&9&l] &7→ &cTrop d''arguments pour la commande !"),

@@ -6,6 +6,7 @@ import java.util.UUID;
 public class Database {
 
     private Connection connection;
+
     String host;
     int port;
     String user;
@@ -36,7 +37,7 @@ public class Database {
         PreparedStatement ps = getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS playerstatistics (" +
                                                                     "playeruuid    VARCHAR(36)     PRIMARY KEY, " +
                                                                     "kills         NUMERIC, " +
-                                                                    "deaths        NUMERIC,)");
+                                                                    "deaths        NUMERIC)");
 
         ps.execute();
     }

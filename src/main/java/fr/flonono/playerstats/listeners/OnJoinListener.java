@@ -7,23 +7,17 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.flonono.playerstats.PlayerStats;
 import fr.flonono.playerstats.database.DatabaseManagement;
 import me.clip.placeholderapi.PlaceholderAPI;
  
-public class OnJoinListener extends JavaPlugin implements Listener {
-
-    @Override
-    public void onEnable() {
-    getServer().getPluginManager().registerEvents(this, this);
-    }
+public class OnJoinListener implements Listener {
  
     @EventHandler
-    public void PlayerJoin(PlayerLoginEvent event) {
+    public void PlayerJoin(PlayerJoinEvent event) {
 
     Player p = event.getPlayer();
     UUID UuidPlayer = p.getUniqueId();

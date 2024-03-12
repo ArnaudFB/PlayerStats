@@ -8,7 +8,8 @@ import java.util.UUID;
 
 public class DatabaseManagement {
 
-    private static Database database;
+    private static Database db;
+
     private static boolean isError;
 
     public static void init() {
@@ -19,13 +20,13 @@ public class DatabaseManagement {
         String host = plugin.getConfig().getString("database.url");
         String user = plugin.getConfig().getString("database.user");
         String password = plugin.getConfig().getString("database.password");
-        String databasename = plugin.getConfig().getString("database.databasename");
+        String database = plugin.getConfig().getString("database.database");
         int port = plugin.getConfig().getInt("database.port", 3306);
 
-        database = new Database(host, port, user, password, databasename);
+        db = new Database(host, port, user, password, database);
 
         try {
-            database.init();
+            db.init();
         } catch (SQLException ex) {
             PlayerStats.log.sendMessage("§cCritical error when trying to init database, please check your credentials and reload the plugin: " + ex.getMessage());
             isError = true;
@@ -39,12 +40,11 @@ public class DatabaseManagement {
         }
 
         try {
-            database.load();
+            db.load();
         } catch (SQLException ex) {
             PlayerStats.log.sendMessage("§cCritical error when trying to load database: " + ex.getMessage());
             isError = true;
         }
-
     }
 
     public static void addPlayerToDatabase(UUID playerUuid) {
@@ -54,7 +54,7 @@ public class DatabaseManagement {
         }
 
         try {
-            database.addPlayerToDatabase(playerUuid);
+            db.addPlayerToDatabase(playerUuid);
         } catch (SQLException ex) {
             PlayerStats.log.sendMessage("§cError when trying to add player " + playerUuid + " to database " + ex.getMessage());
             isError = true;
@@ -68,7 +68,7 @@ public class DatabaseManagement {
         }
 
         try {
-            int kills = database.getKillsByUUID(playerUuid);
+            int kills = db.getKillsByUUID(playerUuid);
             if (kills == -1) {
                 return ResultT.error("No player match found with uuid = " + playerUuid);
             }
@@ -86,7 +86,7 @@ public class DatabaseManagement {
         }
 
         try {
-            int deaths = database.getDeathsByUUID(playerUuid);
+            int deaths = db.getDeathsByUUID(playerUuid);
             if (deaths == -1) {
                 return ResultT.error("No player match found with uuid = " + playerUuid);
             }
@@ -108,12 +108,12 @@ public class DatabaseManagement {
         }
 
         try {
-            int kills = database.getKillsByUUID(playerUuid);
+            int kills = db.getKillsByUUID(playerUuid);
             if (kills == -1) {
                 PlayerStats.log.sendMessage("§cSomething went wrong when trying to access stats on player " + playerUuid);
             }
             int newKillAmount = kills + amount;
-            database.setKillsByUUID(playerUuid, newKillAmount);
+            db.setKillsByUUID(playerUuid, newKillAmount);
         } catch (SQLException ex) {
             PlayerStats.log.sendMessage("§Something went wrong when trying to increment kills on player " + playerUuid);
         }
@@ -129,12 +129,12 @@ public class DatabaseManagement {
         }
 
         try {
-            int deaths = database.getDeathsByUUID(playerUuid);
+            int deaths = db.getDeathsByUUID(playerUuid);
             if (deaths == -1) {
                 PlayerStats.log.sendMessage("§cSomething went wrong when trying to access stats on player " + playerUuid);
             }
             int newDeathAmount = deaths + amount;
-            database.setDeathsByUUID(playerUuid, newDeathAmount);
+            db.setDeathsByUUID(playerUuid, newDeathAmount);
         } catch (SQLException ex) {
             PlayerStats.log.sendMessage("§Something went wrong when trying to increment deaths on player " + playerUuid);
         }
@@ -147,8 +147,8 @@ public class DatabaseManagement {
         }
 
         try {
-            database.setKillsByUUID(playerUuid, 0);
-            database.setDeathsByUUID(playerUuid, 0);
+            db.setKillsByUUID(playerUuid, 0);
+            db.setDeathsByUUID(playerUuid, 0);
         } catch (SQLException ex) {
             PlayerStats.log.sendMessage("§cSomething went wrong when trying to reset statistics on player " + playerUuid + ex.getMessage());
         }
@@ -163,7 +163,7 @@ public class DatabaseManagement {
             return;
         }
         try {
-            database.close();
+            db.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
