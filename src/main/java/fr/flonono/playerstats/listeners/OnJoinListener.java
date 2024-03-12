@@ -13,7 +13,9 @@ import org.bukkit.inventory.ItemStack;
 import fr.flonono.playerstats.PlayerStats;
 import fr.flonono.playerstats.database.DatabaseManagement;
 import me.clip.placeholderapi.PlaceholderAPI;
- 
+
+import static fr.flonono.playerstats.utils.language.MessageUtils.colorize;
+
 public class OnJoinListener implements Listener {
  
     @EventHandler
@@ -32,7 +34,7 @@ public class OnJoinListener implements Listener {
 
     FileConfiguration languageConfig = PlayerStats.getInstance().getLang();
     String message = languageConfig.getString("MiscMessages.DisplayPlayerStats", "§aYou have  %playerstats_Kills% kills and %playerstats_Death% deaths.");
-    String parsedMessage = PlaceholderAPI.setPlaceholders(p, message);
+    String parsedMessage = PlaceholderAPI.setPlaceholders(p, colorize(message));
     p.sendMessage(parsedMessage);    
     }
 }

@@ -1,6 +1,7 @@
 package fr.flonono.playerstats;
 
 import fr.flonono.playerstats.commands.CommandStats;
+import fr.flonono.playerstats.commands.TabCompletion;
 import fr.flonono.playerstats.database.DatabaseManagement;
 import fr.flonono.playerstats.hooks.PlaceholderHook;
 import fr.flonono.playerstats.listeners.OnJoinListener;
@@ -39,6 +40,7 @@ public final class PlayerStats extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new OnJoinListener(), this);
 
         this.getCommand("stats").setExecutor(new CommandStats());
+        this.getCommand("stats").setTabCompleter(new TabCompletion());
 
         if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             new PlaceholderHook(this).register();

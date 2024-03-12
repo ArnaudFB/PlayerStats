@@ -11,11 +11,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TabCompletion implements TabCompleter {
-
-    List<String> arguments = new ArrayList<>(Arrays.asList("reset", "reload", "give"));
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
 
+        List<String> arguments = new ArrayList<>(Arrays.asList("reset", "reload", "give"));
         List<String> result = new ArrayList<>();
 
         if (args.length == 1) {
@@ -28,8 +27,8 @@ public class TabCompletion implements TabCompleter {
                 if (string.toLowerCase().startsWith(args[0].toLowerCase())) {
                     result.add(string);
                 }
-                return result;
             }
+            return result;
         }
 
         if (args[0].equalsIgnoreCase("give")) {
@@ -38,8 +37,8 @@ public class TabCompletion implements TabCompleter {
                     if (player.getName().toLowerCase().startsWith(args[1].toLowerCase())) {
                         result.add(player.getName());
                     }
-                    return result;
                 }
+                return result;
             }
             if (args.length == 3) {
                 result.add("death");
@@ -60,8 +59,8 @@ public class TabCompletion implements TabCompleter {
                     if (player.getName().toLowerCase().startsWith(args[1].toLowerCase())) {
                         result.add(player.getName());
                     }
-                    return result;
                 }
+                return result;
             }
         }
 

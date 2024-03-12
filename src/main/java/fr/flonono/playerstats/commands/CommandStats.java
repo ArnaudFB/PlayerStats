@@ -60,6 +60,10 @@ public class CommandStats implements CommandExecutor{
                 commandSender.sendMessage(colorize(lang.getString("ErrorMessages.NoPermission")));
                 return false;
             }
+            if (args.length <= 1) {
+                commandSender.sendMessage(colorize(lang.getString("ErrorMessages.NotEnoughArgsError")));
+                return false;
+            }
             if (args.length > 2) {
                 commandSender.sendMessage(colorize(lang.getString("ErrorMessages.TooManyArgsError")));
                 return false;
@@ -81,28 +85,36 @@ public class CommandStats implements CommandExecutor{
                 commandSender.sendMessage(colorize(lang.getString("ErrorMessages.NoPermission")));
                 return false;
             }
+            if (args.length < 4) {
+                commandSender.sendMessage(colorize(lang.getString("ErrorMessages.NotEnoughArgsError")));
+                return false;
+            }
             if (args.length > 4) {
                 commandSender.sendMessage(colorize(lang.getString("ErrorMessages.TooManyArgsError")));
                 return false;
             }
-            if (args[1].equalsIgnoreCase("death") || args[1].equalsIgnoreCase("kill")) {
+            if (args[2].equalsIgnoreCase("death") || args[2].equalsIgnoreCase("kill")) {
                 try {
                     Integer amount = Integer.parseInt(args[3]);
-                    Player targetedPlayer = Bukkit.getPlayerExact(args[2]);
+                    Player targetedPlayer = Bukkit.getPlayerExact(args[1]);
                     if (targetedPlayer == null) {
                         return false;
                     }
-                    if (args[1].equalsIgnoreCase("kill")) {
+                    if (args[2].equalsIgnoreCase("kill")) {
                         DatabaseManagement.incrementKillByUUID(targetedPlayer.getUniqueId(), amount);
+                        return true;
                     }
-                    if (args[1].equalsIgnoreCase("death")) {
+                    if (args[2].equalsIgnoreCase("death")) {
                         DatabaseManagement.incrementDeathByUUID(targetedPlayer.getUniqueId(), amount);
+                        return true;
                     }
                 } catch (NumberFormatException ex) {
                     commandSender.sendMessage(colorize(lang.getString("ErrorMessages.NotAnIntError")));
+                    return false;
                 }
             }
             commandSender.sendMessage(colorize(lang.getString("ErrorMessages.WrongCommandError")));
+            return false;
         }
 
         // /stats <player>
@@ -115,7 +127,7 @@ public class CommandStats implements CommandExecutor{
             String message = lang.getString("MiscMessages.DisplayOtherPlayerStats");
             String parsedMessage = PlaceholderAPI.setPlaceholders(targetedPlayer, message);
             commandSender.sendMessage(colorize(parsedMessage));
-
+            return true;
         }
         return false;
     }
