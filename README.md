@@ -1,4 +1,8 @@
-## PlayerStats, display PVP statistics for each player
+# PlayerStats
+
+<img src="https://datascientest.com/wp-content/uploads/2021/07/DIstribution-gaussienne-1024x563.png" alt="PlayerStats" style="height: 200px; width:200px;"/>
+
+## display PVP statistics for each player
 
 This plugin is used to track each player's kill and death.<br>
 This plugin supports PlaceholderAPI and IridiumColorAPI.<br>
