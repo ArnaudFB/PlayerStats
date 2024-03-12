@@ -2,3 +2,18 @@ name: PlayerStats
 version: '${version}'
 main: fr.flonono.playerstats.PlayerStats
 api-version: '1.20'
+depend:
+  - "PlaceholderAPI"
+commands:
+  stats:
+    description: Base command for the plugin
+permissions:
+  playerstats.reset:
+    description: Allows one to reset someone's stats
+  playerstats.reload:
+    description: Allows one to reload plugin's config
+    default: op
+  playerstats.give:
+    description: Allows one to give kills/deaths to a specified player
+    default: op
+
