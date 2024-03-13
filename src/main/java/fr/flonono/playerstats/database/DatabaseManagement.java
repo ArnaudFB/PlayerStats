@@ -9,9 +9,9 @@ import java.util.UUID;
 public class DatabaseManagement {
 
     private static Database db;
-
     private static boolean isError;
 
+    // Initialisation de la DB
     public static void init() {
         isError = false;
 
@@ -33,6 +33,7 @@ public class DatabaseManagement {
         }
     }
 
+    // Load la DB
     public static void load() {
         if (isError) {
             PlayerStats.log.sendMessage("§cInteractions with storage disable to prevent issue, an error occurred before this, please go up in the logs.");
@@ -47,6 +48,7 @@ public class DatabaseManagement {
         }
     }
 
+    // Ajout du joueur à la DB
     public static void addPlayerToDatabase(UUID playerUuid) {
         if (isError) {
             PlayerStats.log.sendMessage("§cInteractions with storage disable to prevent issue, an error occurred before this, please go up in the logs.");
@@ -62,6 +64,7 @@ public class DatabaseManagement {
 
     }
 
+    // Getter des kills du joueur
     public static ResultT<Integer> getKillsByUUID(UUID playerUuid) {
         if (isError) {
             return ResultT.error("§cInteractions with storage disable to prevent issue, an error occurred before this, please go up in the logs.");
@@ -80,6 +83,7 @@ public class DatabaseManagement {
 
     }
 
+    // Getter des morts du joueur
     public static ResultT<Integer> getDeathsByUUID(UUID playerUuid) {
         if (isError) {
             return ResultT.error("§cInteractions with storage disable to prevent issue, an error occurred before this, please go up in the logs.");
@@ -98,6 +102,7 @@ public class DatabaseManagement {
 
     }
 
+    // Incrementation des kills du joueur
     public static void incrementKillByUUID(UUID playerUuid, int amount) {
         if (isError) {
             PlayerStats.log.sendMessage("§cInteractions with storage disable to prevent issue, an error occurred before this, please go up in the logs.");
@@ -119,6 +124,7 @@ public class DatabaseManagement {
         }
     }
 
+    // ncrementation des morts du joueur
     public static void incrementDeathByUUID(UUID playerUuid, int amount) {
         if (isError) {
             PlayerStats.log.sendMessage("§cInteractions with storage disable to prevent issue, an error occurred before this, please go up in the logs.");
@@ -140,6 +146,7 @@ public class DatabaseManagement {
         }
     }
 
+    // Reset les statistiques du joueur
     public static void resetStatisticsByUUID(UUID playerUuid) {
         if (isError) {
             PlayerStats.log.sendMessage("§cInteractions with storage disable to prevent issue, an error occurred before this, please go up in the logs.");
@@ -147,17 +154,18 @@ public class DatabaseManagement {
         }
 
         try {
-            db.setKillsByUUID(playerUuid, 0);
-            db.setDeathsByUUID(playerUuid, 0);
+            db.resetStatisticsByUUID(playerUuid);
         } catch (SQLException ex) {
             PlayerStats.log.sendMessage("§cSomething went wrong when trying to reset statistics on player " + playerUuid + ex.getMessage());
         }
     }
 
+    // Detection d'une erreur sur la DB
     public static boolean isDatabaseInError() {
         return isError;
     }
 
+    // Fermeture de la connection à la DB
     public static void close() {
         if (isError) {
             return;

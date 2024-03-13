@@ -53,6 +53,7 @@ public class PlaceholderHook extends PlaceholderExpansion {
         return "1.0.0";
     }
 
+    // Mise en place des Placeholder de mort/kill
     @Override
     public String onRequest(OfflinePlayer player, String params) {
         PlayerStats playerStats = PlayerStats.getInstance();

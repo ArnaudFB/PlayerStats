@@ -23,15 +23,13 @@ public class OnJoinListener implements Listener {
 
     Player p = event.getPlayer();
     UUID UuidPlayer = p.getUniqueId();
-
+    // Ajout du joueur à la DB si c'est sa première connexion au serveur
     if(!p.hasPlayedBefore()) {
         DatabaseManagement.addPlayerToDatabase(UuidPlayer);       
         p.getInventory().addItem(new ItemStack(Material.STONE_SWORD));
         p.getInventory().addItem(new ItemStack(Material.BOW));
         p.getInventory().addItem(new ItemStack(Material.ARROW, 16));
     }
-
-
     FileConfiguration languageConfig = PlayerStats.getInstance().getLang();
     String message = languageConfig.getString("MiscMessages.DisplayPlayerStats", "§aYou have  %playerstats_Kills% kills and %playerstats_Death% deaths.");
     String parsedMessage = PlaceholderAPI.setPlaceholders(p, colorize(message));

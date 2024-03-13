@@ -17,6 +17,7 @@ public class TabCompletion implements TabCompleter {
         List<String> arguments = new ArrayList<>(Arrays.asList("reset", "reload", "give"));
         List<String> result = new ArrayList<>();
 
+        // Pour l'accès au différentes commandes du plugin
         if (args.length == 1) {
             for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                 if (player.getName().toLowerCase().startsWith(args[0].toLowerCase())) {
@@ -31,6 +32,7 @@ public class TabCompletion implements TabCompleter {
             return result;
         }
 
+        // force les arguments pour la commande /stats give
         if (args[0].equalsIgnoreCase("give")) {
             if (args.length <= 2) {
                 for (Player player : Bukkit.getServer().getOnlinePlayers()) {
@@ -53,6 +55,7 @@ public class TabCompletion implements TabCompleter {
             }
         }
 
+        // force les arguments pour la commande /stats reset
         if (args[0].equalsIgnoreCase("reset")) {
             if (args.length <= 2) {
                 for (Player player : Bukkit.getServer().getOnlinePlayers()) {

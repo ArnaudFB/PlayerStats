@@ -29,19 +29,19 @@ public final class PlayerStats extends JavaPlugin {
     public void onEnable() {
         instance = this;
         log = Bukkit.getConsoleSender();
-
+        // Save la config par défaut et load le fichier de langage
         saveDefaultConfig();
         loadLang();
-
+        // Initialise la connection à la DB puis la charge
         DatabaseManagement.init();
         DatabaseManagement.load();
-
+        // Enregistrement des listeners du plugin
         getServer().getPluginManager().registerEvents(new OnKillListener(), this);
         getServer().getPluginManager().registerEvents(new OnJoinListener(), this);
-
+        // Enregistrement de la commande et de l'autocomplétion par TAB
         this.getCommand("stats").setExecutor(new CommandStats());
         this.getCommand("stats").setTabCompleter(new TabCompletion());
-
+        // Vérification de la présence de PlaceholderAPI
         if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             new PlaceholderHook(this).register();
         }
@@ -50,11 +50,13 @@ public final class PlayerStats extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        // Ferme la connection à la DB
         DatabaseManagement.close();
     }
 
     public static PlayerStats getInstance() { return instance; }
 
+    // Load le fichier de langage, et si il est absent, en génère un par défaut
     public void loadLang() {
         File lang = new File(getDataFolder(), "fr_lang.yml");
         Reader defConfigStream;
@@ -70,8 +72,8 @@ public final class PlayerStats extends JavaPlugin {
                 }
             } catch(IOException e) {
                 e.printStackTrace();
-                log.sendMessage("[SkyIslandLife] Couldn't create language file.");
-                log.sendMessage("[SkyIslandLife] This is a fatal error. Now disabling");
+                log.sendMessage("[PlayerStats] Couldn't create language file.");
+                log.sendMessage("[PlayerStats] This is a fatal error. Now disabling");
                 this.setEnabled(false);
             }
         }
@@ -87,7 +89,7 @@ public final class PlayerStats extends JavaPlugin {
         try {
             conf.save(getLangFile());
         } catch(IOException e) {
-            log.sendMessage("SkyIslandLife: &cCritical error : Failed to save lang.yml." + e.getMessage());
+            log.sendMessage("PlayerStats: &cCritical error : Failed to save lang.yml." + e.getMessage());
 
         }
     }

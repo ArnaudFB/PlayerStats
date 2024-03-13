@@ -18,11 +18,11 @@ public class OnKillListener implements Listener {
 
         Player killed = event.getEntity();
         Player killer = event.getEntity().getKiller();
-
+        // Détecte si la mort n'est pas causé par un autre joueur
         if (killer == null){
             return;
         }
-        
+        // Incrémentation des kills et des morts aux bons joueurs
         UUID killerUuid = killer.getUniqueId();
         UUID killedUuid = killed.getUniqueId();        
         DatabaseManagement.incrementDeathByUUID(killedUuid, 1);
