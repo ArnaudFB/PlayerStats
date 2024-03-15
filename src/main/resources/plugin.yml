@@ -4,12 +4,17 @@ main: fr.flonono.playerstats.PlayerStats
 api-version: '1.20'
 depend:
   - "PlaceholderAPI"
+softdepend:
+  - "LuckPerms"
 commands:
   stats:
     description: Base command for the plugin
 permissions:
+  playerstats.seen:
+    description: Allows one to see other people's stats
   playerstats.reset:
     description: Allows one to reset someone's stats
+    default: op
   playerstats.reload:
     description: Allows one to reload plugin's config
     default: op

@@ -45,7 +45,7 @@ public class CommandStats implements CommandExecutor{
 
         // /stats
         if (args.length == 0) {
-            if (commandSender instanceof Player) {
+            if (commandSender instanceof Player && commandSender.hasPermission("playerstats.seen")) {
                 Player player = (((Player) commandSender).getPlayer());
                 String message = lang.getString("MiscMessages.DisplayPlayerStats");
                 String parsedMessage = PlaceholderAPI.setPlaceholders(player, message);
@@ -118,7 +118,7 @@ public class CommandStats implements CommandExecutor{
         }
 
         // /stats <player>
-        if (args.length == 1){
+        if (args.length == 1 && commandSender.hasPermission("playerstats.seen")){
             Player targetedPlayer = Bukkit.getPlayerExact(args[0]);
             if (targetedPlayer == null){
                 commandSender.sendMessage(colorize(lang.getString("ErrorMessages.PlayerNotFoundError")));

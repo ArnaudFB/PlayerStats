@@ -1,17 +1,19 @@
+PluginName: '&9&l[&3&lPlayer&b&lStats&9&l] &7'
+
 MiscMessages:
   DisplayPlayerStats: '&9&l[&3&lPlayer&b&lStats&9&l] &7→ Vous avez tué %playerstats_kills%
     joueurs et vous êtes morts %playerstats_deaths% fois.'
   DisplayOtherPlayerStats: '&9&l[&3&lPlayer&b&lStats&9&l] &7→ Ce joueur a tué %playerstats_kills%
     joueurs et est mort %playerstats_deaths% fois.'
-  ResetedPlayerStats: '&9&l[&3&lPlayer&b&lStats&9&l] &7→ Vous venez de réinitialiser les statistiques du joueur'
+  ResetedPlayerStats: '&9&l[&3&lPlayer&b&lStats&9&l] &7→ Vous venez de réinitialiser
+    les statistiques du joueur'
   ReloadComplete: '&9&l[&3&lPlayer&b&lStats&9&l] &7→ Reload effectué !'
-
 
 ErrorMessages:
   NoPermission: '&9&l[&3&lPlayer&b&lStats&9&l] &7→ &cVous n''avez pas la permission
     d''effectuer cette commande'
-  TooManyArgsError: '&9&l[&3&lPlayer&b&lStats&9&l] &7→ &cTrop d''arguments pour
-    la commande !'
+  TooManyArgsError: '&9&l[&3&lPlayer&b&lStats&9&l] &7→ &cTrop d''arguments pour la
+    commande !'
   NotEnoughArgsError: '&9&l[&3&lPlayer&b&lStats&9&l] &7→ &cPas assez d''arguments
     pour la commande !'
   PlayerNotFoundError: '&9&l[&3&lPlayer&b&lStats&9&l] &7→ &cLe joueur spécifié n''a
